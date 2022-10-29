@@ -43,9 +43,9 @@ app.post('/registered', (req,res)=>{
 
 });
 app.post('/submitSkills', (req,res)=>{
-    var allSkills=req.body;
-    console.log(allSkills);
-    res.render('expertise',{cookie:""});
+    var allskills=req.body;
+    //console.log(allskills);
+    res.render('expertise',{allskills:allskills});
     
 
 });
@@ -57,14 +57,20 @@ app.post('/submitProjects', (req,res)=>{
 });
 
 app.get('/expertise', (req,res)=>{
-    res.render('expertise',{cookie:""});
+    res.render('expertise',{allskills:""});
 });
-app.get('*', (req,res)=>{
-    res.render('home');
+app.post('/expertise', (req,res)=>{
+    var allskills=req.allskills;
+    console.log(allSkills);
+    res.render('expertise',{allskills:allskills});
 });
 app.get('/register', (req,res)=>{
     res.render('mentor');
 });
+app.get('*', (req,res)=>{
+    res.render('home');
+});
+
 app.listen(port,()=>{
     console.log(`Listening at port ${port}`);
 });
