@@ -1,12 +1,13 @@
+
 var express = require('express');
 var app = express();
 var path = require('path');
 var port = 3000;
-var bodyParser = require('body-parser')
-app.use( bodyParser.json() );      
-app.use(bodyParser.urlencoded({    
+var bodyParser = require('body-parser');
+app.use( bodyParser.json() );
+app.use(bodyParser.urlencoded({
   extended: false
-})); 
+}));
 
 var cookie="";
 var f=0;
@@ -46,14 +47,11 @@ app.post('/submitSkills', (req,res)=>{
     var allskills=req.body;
     //console.log(allskills);
     res.render('expertise',{allskills:allskills});
-    
-
 });
 app.post('/submitProjects', (req,res)=>{
     var allProjects=req.body;
     console.log(allProjects);
     res.render('expertise',{cookie:""});
-
 });
 
 app.get('/expertise', (req,res)=>{

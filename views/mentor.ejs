@@ -12,11 +12,11 @@
 
 
 <body>
-    
+
     <nav class="bg-blue-700 flex justify-between items-center max-h-16">
         <img src="../public/logo.webp" alt="" class="w-12 h-12 mx-7 rounded-full">
         <ul class="flex text-cyan-100 justify-end font-bold pr-20">
-            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/home" class="">Home</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/" class="">Home</a></li>
             <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/about" class="">About</a></li>
             <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/contact" class="">Contact</a>
             </li>
@@ -24,21 +24,20 @@
     </nav>
     <section class="bg-green-300 flex flex-col pt-14 justify-items-start text-center items-center h-97">
         <div class="w-96 ">
-            <h1 class="text-3xl font-bold mb-7 ">Login</h1>
-            <form action="/expertise" method="get" class="flex flex-col items-center">
+            <h1 class="text-3xl font-bold mb-7 ">Create an Account</h1>
+            <form action="/mentor" method="post" class="flex flex-col items-center">
+                <input type="name" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="name"
+                    placeholder="Enter your Name">
                 <input type="email" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="email"
                     placeholder="Enter your Email">
+                <input type="text" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="linkedin"
+                    placeholder="Enter your Linked-in Id">
                 <input type="password" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="password"
                     placeholder="Enter your Password">
-                <button class="btn border-0 w-24 h-9 rounded-3xl mt-3 bg-blue-700 text-white hover:bg-red-500">Login</button>
-            </form>           
-        </div>
-        <div class=" mt-12">
-        <h1 class="text-3xl font-bold mb-5">Dont have an account?</h1>
-        <a href="/register">
-        <button class="btn border-0 w-64 h-9 rounded-3xl bg-blue-700 text-white hover:bg-red-500">Click to Register</button>
-        </a>
-        </div>
+                <input type="password" class="m-2 border-2 border-black rounded-3xl p-2 w-96" name="re-password"
+                    placeholder="Re-enter your Password">
+                <button class="btn border-0 w-24 h-9 rounded-3xl mt-3 bg-blue-700 text-white hover:bg-red-500">Register</button>
+            </form>
     </section>
 
 </body>

@@ -14,18 +14,13 @@
 
 </body>
 <script>
-    //     function showAlert() {
-
-    // {
-    //     alert("You have been Registered Successfully!");
-    // }
-    // }
     window.addEventListener('load', () => {
-        alert("You have been Registered Successfully!");
-        window.location.href="http://localhost:3000/mentor";
+      var getMessage = "<%= myMessage %>";
+        alert(getMessage);
+        window.location.href="http://localhost:5000/"+"<%=url%>";
     });
-        
-    
+
+
 </script>
 
 </html>
