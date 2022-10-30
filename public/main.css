@@ -23,3 +23,6 @@
 .text-myl{
     font-size: x-large;
 }
+.h-inherit{
+    height: inherit;
+}
