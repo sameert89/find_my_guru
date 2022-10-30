@@ -197,7 +197,31 @@ app.post("/search", async function(req, res) {
   }
 });
 
-
+app.post('/search',(req,res)=>{
+    var search=req.body;
+    console.log(search);
+    var mentors={
+        "m1" : {
+        "name":"Palash",
+        "email":"palash9914",
+        "skills":"gfg asd asdf wrgv sdih asdgils asdgilhsdl iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+        "project1" : "projecta",
+        "project2" : "projectb",
+        "project3" : "projectc",
+        },
+        "m2" : {
+            "name":"Sameer",
+            "email":"sam123",
+        "skills":"lc asd asdf wrgv sdih asdgils asdgilhsdl",
+        "project1" : "projectx",
+        "project2" : "projecty",
+        "project3" : "projectz", 
+            }  
+    }
+    console.log(mentors);
+    console.log("234234324");
+    res.render('display',{mentors:mentors});
+});
 //I dont know what this is
 // app.post('/registered', async function(req, res) {
 //   let query = req.cookies['id'];
