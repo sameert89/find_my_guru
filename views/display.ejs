@@ -39,7 +39,7 @@
                     <p class=""> <span>Skills:</span> skll1 skill2 skill3 skill skill </p>
                 </div>
                 <div class="h-2/6">
-
+                    
                     <p>Projects: <span>Project1</span></p>
                     <p>           Project2</p>
                     <p>           Project3</p>
@@ -49,18 +49,9 @@
         </section> -->
     </section>
     <script>
-        const skillMap = new Map([
-          ["fullstackwebdevelopment": "Full Stack Web Development"],
-          ["reactjs": "React Js"],
-          ["backendwebdevelopment": "Backend Web Development"],
-          ["frontendwebdevelopment": "Frontend Web Development"],
-          ["nodejs": "Node JS"],
-          ["datastructuresandalgorithm": "Data Structures & Algorithms"]
-          ["androiddevelopment": "Android Development"],
-          ["other": "Miscellaneous"]
-        ]);
+        
         var mentors= <%-JSON.stringify(mentors)%>
-        //console.log(mentors.m1.name);
+        console.log(mentors.m1);
         const sectmain=document.querySelector(".main");
         var f=0;
         for(var obj in mentors){
@@ -108,18 +99,25 @@
             dm2.classList.add("h-2/6");
             const pd2=document.createElement('p');
             pd2.classList.add("font-bold");
-
+            
             var skills=mentors[obj].skills;
-            console.log("here"+skills);
+            console.log(skills);
             var dispskill="";
             var temp="&bull;";
-
+            
             for(var i=0;i<skills.length;i++){
-
-                dispskill+= skillMap.get(skills[i]) + " " + temp;
-                console.log("Here:  " + dispskill);
+                
+                
+                dispskill=dispskill+" "+"&bull;"+skills[i];
+                    //temp="&bull;";
+                
+                
+                
+                // if(i==250){
+                //     break;
+                // }
             }
-            dispskill+= " " + temp;
+            // dispskill+= " " + temp;
             console.log(dispskill);
             pd2.innerHTML="Skills: " + dispskill;
             dm2.appendChild(pd2);
