@@ -166,9 +166,9 @@ app.post('/login', async function(req, res){
 
 app.post('/search',async (req,res)=>{
     var search= req.body;
-    console.log(search);
+    // console.log(search);
     var mentors = await db.collection("Mentor").find({skills: req.body.skill}).toArray();
-    // console.log(mentors);
+    // console.log(mentors); //logging the mathing mentors
     res.render('display', {mentors:mentors});
 });
 //I dont know what this is
