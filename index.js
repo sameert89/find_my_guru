@@ -164,63 +164,12 @@ app.post('/login', async function(req, res){
 
 // Search Mentor by Name or skills
 
-app.post("/search", async function(req, res) {
-  let searchItem = lodash.startCase(req.body.search);
-  //Search the name of the mentor or search for skills
-  let sch = await db.collection("Mentor").countDocuments({
-    name: searchItem
-  }, limit = 1);
-  if (sch != 0) {
-    //The user searched for name
-    let srch = await db.collection("Mentor").find({
-      name: searchItem
-    }).toArray();
-    console.log("This is not supporsed to happen" + srch);
-    res.render('searchResult', srch);
-  } else {
-    //The user searched for skills
-    //find the the matching mentors and add them into the array;
-    srch = await db.collection("Mentor").find().toArray();
-    console.log(srch);
-    var display = [];
-    srch.forEach((mentor) => {
-      if (mentor.skills != undefined) {
-        for (var i = 0; i < mentor.skills.length; i++) {
-          if (mentor.skills[i] == searchItem) {
-            display.push(mentor);
-          }
-        }
-      }
-    });
-    console.log(display);
-    res.render('searchResult', display);
-  }
-});
-
-app.post('/search',(req,res)=>{
-    var search=req.body;
+app.post('/search',async (req,res)=>{
+    var search= req.body;
     console.log(search);
-    var mentors={
-        "m1" : {
-        "name":"Palash",
-        "email":"palash9914",
-        "skills":"gfg asd asdf wrgv sdih asdgils asdgilhsdl iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
-        "project1" : "projecta",
-        "project2" : "projectb",
-        "project3" : "projectc",
-        },
-        "m2" : {
-            "name":"Sameer",
-            "email":"sam123",
-        "skills":"lc asd asdf wrgv sdih asdgils asdgilhsdl",
-        "project1" : "projectx",
-        "project2" : "projecty",
-        "project3" : "projectz", 
-            }  
-    }
-    console.log(mentors);
-    console.log("234234324");
-    res.render('display',{mentors:mentors});
+    var mentors = await db.collection("Mentor").find({skills: req.body.skill}).toArray();
+    // console.log(mentors);
+    res.render('display', {mentors:mentors});
 });
 //I dont know what this is
 // app.post('/registered', async function(req, res) {
@@ -233,4 +182,37 @@ app.post('/search',(req,res)=>{
 // });
 // app.get("/route/:variable", (req, res)=>{
 //   let recieved_name = req.params.variable;
+// });
+// Discarded search method
+// app.post("/search", async function(req, res) {
+//   let searchItem = lodash.startCase(req.body.search);
+//   //Search the name of the mentor or search for skills
+//   let sch = await db.collection("Mentor").countDocuments({
+//     name: searchItem
+//   }, limit = 1);
+//   if (sch != 0) {
+//     //The user searched for name
+//     let srch = await db.collection("Mentor").find({
+//       name: searchItem
+//     }).toArray();
+//     console.log("This is not supporsed to happen" + srch);
+//     res.render('searchResult', srch);
+//   } else {
+//     //The user searched for skills
+//     //find the the matching mentors and add them into the array;
+//     srch = await db.collection("Mentor").find().toArray();
+//     console.log(srch);
+//     var display = [];
+//     srch.forEach((mentor) => {
+//       if (mentor.skills != undefined) {
+//         for (var i = 0; i < mentor.skills.length; i++) {
+//           if (mentor.skills[i] == searchItem) {
+//             display.push(mentor);
+//           }
+//         }
+//       }
+//     });
+//     console.log(display);
+//     res.render('searchResult', display);
+//   }
 // });
