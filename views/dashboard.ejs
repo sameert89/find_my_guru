@@ -80,40 +80,33 @@
             </section>
         </main>
     </section>
-    <!-- <section class="flex flex-col items-center mt-16 mb-16">
-        <section class="flex flex-col items-center w-98 h-auto ">
-            <div>
-                <h1 class="text-4xl font-bold mb-5">Add Project/Profile links</h1>
-            </div>
-            <form action="/submitProjects" method="post" id="new-project-form"
-                class="skills flex flex-col justify-between items-center space-y-8">
-                
-                <button
-                    class="bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer border-black border-2 w-32 h-auto"
-                    type="submitalls" id="submitalls">Submit Links</button>
-            </form>
-        </section>
-    </section> -->
 </body>
 <script>
-
-
-
-
+const skillMap = new Map([
+  ["fullstackwebdevelopment", "Full Stack Web Development"],
+  ["reactjs", "React Js"],
+  ["backendwebdevelopment", "Backend Web Development"],
+  ["frontendwebdevelopment", "Frontend Web Development"],
+  ["nodejs", "Node JS"],
+  ["datastructuresandalgorithm", "Data Structures & Algorithms"],
+  ["androiddevelopment", "Android Development"],
+  ["other", "Miscellaneous"]
+]);
 
     var params = <%-JSON.stringify(params)%>
-        var strskill = params.skills;
+        var strskill = params[0].skills;
+        console.log(typeof params);
     console.log(params);
     const head = document.querySelector('.mainsect');
     console.log(head);
     const hhead = document.createElement('h1');
     hhead.classList.add("text-5xl", "font-bold", "mt-10")
-    hhead.innerHTML = "Welcome <%-params.name%>!";
+    hhead.innerHTML = "Welcome <%-params[0].name%>!";
     const inserthead = document.querySelector(".sects");
     inserthead.parentNode.insertBefore(hhead, inserthead);
 
-    console.log(params.skills);
-    for (var i = 0; i < params.skills.length; i++) {
+    console.log(params[0].skills);
+    for (var i = 0; i < params[0].skills.length; i++) {
 
         //console.log(prop+" "+ allskills[prop]);
         const form = document.querySelector("#new-skill-form");
@@ -123,7 +116,7 @@
         const list_el = document.querySelector("#skills");
 
 
-        const skill = params.skills[i];
+        const skill = params[0].skills[i];
         //console.log(skill);
         // const val = allskills[prop];
         // strskill.push(skill);
@@ -146,7 +139,7 @@
         task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
 
         task_input_el.type = 'text';
-        task_input_el.value = skill;
+        task_input_el.value = skillMap.get(skill);
         task_input_el.name = skill;
 
         task_input_el.setAttribute('readonly', 'readonly');
@@ -171,11 +164,11 @@
 
         // input.value = '';
     }
-   
+
     document.getElementById('p1').style.display = 'none';
     document.getElementById('p2').style.display = 'none';
     document.getElementById('p3').style.display = 'none';
-    var plink1=params.project1;
+    var plink1=params[0].project1;
     var np=0;
     var a=0,b=0,b=0;
     if(plink1!==undefined){
@@ -196,7 +189,7 @@
         divp.appendChild(dlt);
         bsub.parentNode.insertBefore(divp, bsub);
     }
-    var plink2=params.project1;
+    var plink2=params[0].project1;
     if(plink2!==undefined){
         np++;
         b=1;
@@ -215,7 +208,7 @@
         divp.appendChild(dlt);
         bsub.parentNode.insertBefore(divp, bsub);
     }
-    var plink3=params.project1;
+    var plink3=params[0].project1;
     if(plink3!==undefined){
         np++;
         c=1;
@@ -246,22 +239,22 @@
         document.querySelector("#p3").style.display = 'block';
     }
     var dp1 = document.querySelector(".dp1");
-    dp1.addEventListener('click', (e)=>{       
+    dp1.addEventListener('click', (e)=>{
         document.querySelector('#p1').style.display = 'block';
-        dp1.parentNode.style.display='none';   
+        dp1.parentNode.style.display='none';
     });
     var dp2 = document.querySelector(".dp2");
-    dp2.addEventListener('click', (e)=>{       
+    dp2.addEventListener('click', (e)=>{
         document.querySelector('#p2').style.display = 'block';
-        dp2.parentNode.style.display='none';   
+        dp2.parentNode.style.display='none';
     });
     var dp3 = document.querySelector(".dp3");
-    dp3.addEventListener('click', (e)=>{       
+    dp3.addEventListener('click', (e)=>{
         document.querySelector('#p3').style.display = 'block';
-        dp3.parentNode.style.display='none';   
+        dp3.parentNode.style.display='none';
     });
-    
-    
+
+
 
     const form = document.querySelector("#new-skill-form");
     form.addEventListener('submit', (e) => {

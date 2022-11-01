@@ -1,7 +1,7 @@
 //jshint esversion: 9
 
 //Node Module Configurations
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5000;
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -79,6 +79,19 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
+//Mentor Dashboard
+app.get('/dashboard', async (req, res) => {
+  let query = req.cookies.id;
+  console.log(query);
+  let mentorData = await db.collection("Mentor").find({
+    email: query
+  }).toArray();
+  console.log(mentorData);
+  res.render('dashboard', {
+    params: mentorData
+  });
+});
+
 // Mentee Specific GET paths
 
 app.get("/search", (req, res) => {
@@ -120,13 +133,13 @@ app.post("/mentor", async function(req, res) {
 // Finish Mentor Profile i.e. add details POST function
 
 app.post('/submitSkills', async (req, res) => {
-  let query = req.cookies['id'];
-
+  let query = req.cookies.id;
+  res.clearCookie('id');
   let skillArray = Object.values(req.body);
-  for(var i = 0 ; i < 3 ; i++){
+  for (var i = 0; i < 3; i++) {
     skillArray.pop();
   }
-  skillArray.forEach((element, index, array)=>{
+  skillArray.forEach((element, index, array) => {
     array[index] = (lodash.camelCase(element)).toLowerCase();
   });
   let project1 = req.body.project1;
@@ -143,33 +156,76 @@ app.post('/submitSkills', async (req, res) => {
     }
   });
   //On success
-  res.render('alertRegistered', {url: "mentor", myMessage: "You have been registered successfully, wait for your verification!"});
+  res.render('alertRegistered', {
+    url: "mentor",
+    myMessage: "You have been registered successfully, wait for your verification!"
+  });
 });
 
 //Mentor Login POST function
-app.post('/login', async function(req, res){
+app.post('/login', async function(req, res) {
   var lookup = await db.collection("Mentor").countDocuments({
     email: req.body.email,
     password: req.body.password
   }, limit = 1);
-  if(lookup == 0){
-    res.render('alertRegistered', {url: "login", myMessage: "Invalid email/password please try again!"});
-  }
-  else{
+  if (lookup == 0) {
+    res.render('alertRegistered', {
+      url: "login",
+      myMessage: "Invalid email/password please try again!"
+    });
+  } else {
+    res.cookie('id', req.body.email);
+    console.log("login success cookie set");
     res.redirect('/dashboard');
   }
 });
 
+//Mentor Dashboard Post Function
+app.post('/dashboard', async (req, res) => {
+  let skillArray = Object.values(req.body);
+  for (var i = 0; i < 3; i++) {
+    skillArray.pop();
+  }
+  console.log(skillArray);
+  for (let i = 0; i<skillArray.length; i++){
+    skillArray[i] = lodash.camelCase(skillArray[i]).toLowerCase();
+  }
+  console.log(skillArray);
+  let query = req.cookies.id;
+  let mentorData = await db.collection('Mentor').find({
+    email: query
+  }).toArray();
+  mentorData = mentorData[0];
+  console.log(mentorData[0]);
+  mentorData.project1 = req.body.project1;
+  mentorData.project2 = req.body.project2;
+  mentorData.project3 = req.body.project3;
+  await db.collection('Mentor').updateOne({
+    email: query
+  }, {
+    $set: {
+      skills: skillArray,
+      project1: mentorData.project1,
+      project2: mentorData.project2,
+      project3: mentorData.project3
+    }
+  });
+  res.render('alertRegistered', {myMessage: "Data Altered Successfully!", url: "dashboard"});
+});
 // Mentee Specific post functions
 
 // Search Mentor by Name or skills
 
-app.post('/search',async (req,res)=>{
-    var search= req.body;
-    // console.log(search);
-    var mentors = await db.collection("Mentor").find({skills: req.body.skill}).toArray();
-    // console.log(mentors); //logging the mathing mentors
-    res.render('display', {mentors:mentors});
+app.post('/search', async (req, res) => {
+  var search = req.body;
+  // console.log(search);
+  var mentors = await db.collection("Mentor").find({
+    skills: req.body.skill
+  }).toArray();
+  // console.log(mentors); //logging the mathing mentors
+  res.render('display', {
+    mentors: mentors
+  });
 });
 //I dont know what this is
 // app.post('/registered', async function(req, res) {
