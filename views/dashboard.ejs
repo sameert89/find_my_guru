@@ -217,7 +217,11 @@ const skillMap = new Map([
         const skill = input.value;
         var b = 0;
         for (var k = 0; k < strskill.length; k++) {
-            if (strskill[k] == document.getElementById(skill).innerHTML) {
+          let currSkill = (document.getElementById(skill).innerHTML).replace(/\s/g, '');
+          currSkill = currSkill.toLowerCase();
+          console.log(typeof strskill[k]);
+            if (strskill[k] == currSkill) {
+              console.log("I was true");
                 b = 1;
             }
         }
@@ -259,7 +263,6 @@ const skillMap = new Map([
     });
     var dlt = document.querySelectorAll(".delete");
     for (var i = 0; i < dlt.length; i++) {
-        //console.log(dlt[i]);
         dlt[i].onclick = function () {
             this.parentElement.style.display = "none";
             strskill.splice(i, 1);
