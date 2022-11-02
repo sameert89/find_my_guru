@@ -16,7 +16,7 @@
     <nav class="bg-blue-700 flex justify-between items-center max-h-16">
         <img src="../public/logo.webp" alt="" class="w-12 h-12 mx-7 rounded-full">
         <ul class="flex text-cyan-100 justify-end font-bold pr-20">
-            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/index" class="">Home</a></li>
+            <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/" class="">Home</a></li>
             <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/about" class="">About</a></li>
             <li class="px-4 py-4 hover:cursor-pointer hover:text-yellow-500"><a href="/contact" class="">Contact</a>
             </li>
@@ -50,19 +50,6 @@
 
                 <form action="/dashboard" id="skills"
                     class="skills flex flex-col justify-between items-center space-y-8" method="post">
-
-                    <!-- <div class="task flex flex-row justify-evenly items-center">
-                        <span>&bull;</span>
-                        <div class="content ">
-                            <input type="text" class="text font-bold text-xl w-72 hover:cursor-default"
-                                style="border: 0px" value="A new task" readonly>
-
-                        </div>
-
-                        <button onclick="dlt()" id="delete"
-                            class="delete border-0 bg-red-500 hover:bg-red-700 w-20 font-semibold ">Delete</button>
-
-                    </div> -->
                     <h1 class="text-3xl font-bold beforeProj">Your Project/Profile links</h1>
                     <input type="text" name="project1" id="p1"
                         class="text-sm font-bold w-98 m-2 border-2 border-black rounded-3xl p-2 "
@@ -80,97 +67,60 @@
             </section>
         </main>
     </section>
-    <!-- <section class="flex flex-col items-center mt-16 mb-16">
-        <section class="flex flex-col items-center w-98 h-auto ">
-            <div>
-                <h1 class="text-4xl font-bold mb-5">Add Project/Profile links</h1>
-            </div>
-            <form action="/submitProjects" method="post" id="new-project-form"
-                class="skills flex flex-col justify-between items-center space-y-8">
-                
-                <button
-                    class="bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer border-black border-2 w-32 h-auto"
-                    type="submitalls" id="submitalls">Submit Links</button>
-            </form>
-        </section>
-    </section> -->
 </body>
 <script>
-
-
-
-
-
+const skillMap = new Map([
+  ["fullstackwebdevelopment", "Full Stack Web Development"],
+  ["reactjs", "React Js"],
+  ["backendwebdevelopment", "Backend Web Development"],
+  ["frontendwebdevelopment", "Frontend Web Development"],
+  ["nodejs", "Node JS"],
+  ["datastructuresandalgorithm", "Data Structures & Algorithms"],
+  ["androiddevelopment", "Android Development"],
+  ["other", "Miscellaneous"]
+]);
     var params = <%-JSON.stringify(params)%>
-    var strskill = params.skills;
+    var strskill = params[0].skills;
     const head = document.querySelector('.mainsect');
     const hhead = document.createElement('h1');
     hhead.classList.add("text-5xl", "font-bold", "mt-10")
-    hhead.innerHTML = "Welcome <%-params.name%>!";
+    hhead.innerHTML = "Welcome <%-params[0].name%>!";
     const inserthead = document.querySelector(".sects");
     inserthead.parentNode.insertBefore(hhead, inserthead);
-    for (var i = 0; i < params.skills.length; i++) {
-
-        //console.log(prop+" "+ allskills[prop]);
+    for (var i = 0; i < params[0].skills.length; i++) {
         const form = document.querySelector("#new-skill-form");
-
-
         const input = document.querySelector("#new-skill-input");
         const list_el = document.querySelector("#skills");
-
-
-        const skill = params.skills[i];
-        //console.log(skill);
-        // const val = allskills[prop];
-        // strskill.push(skill);
-        //console.log(skill + val);
+        const skill = skillMap.get(params[0].skills[i]);
         const task_el = document.createElement('div');
         task_el.classList.add("task", "flex", "flex-row", "justify-around", "items-center");
-
         const task_content_el = document.createElement('div');
         task_content_el.classList.add('content');
         const bul = document.createElement('span')
         bul.classList.add("text-3xl");
         bul.innerHTML = "&bull;";
-
         task_el.appendChild(bul);
-        //console.log(bul.innerHTML);
         task_el.appendChild(task_content_el);
-
         const task_input_el = document.createElement('input');
-
         task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
-
         task_input_el.type = 'text';
         task_input_el.value = skill;
         task_input_el.name = skill;
-
         task_input_el.setAttribute('readonly', 'readonly');
         task_content_el.appendChild(task_input_el);
-
-
-
-
         const task_delete_el = document.createElement('span');
         var d = "delete";
         task_delete_el.classList.add(d, "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-red-500", "hover:bg-red-700", "w-auto", "font-semibold", "pl-2", "pr-2");
         task_delete_el.setAttribute("onlick", "dlt()")
         task_delete_el.innerText = 'Delete';
-
-
-
         const bpj = document.querySelector(".beforeProj");
         task_el.appendChild(task_delete_el);
-
         bpj.parentNode.insertBefore(task_el, bpj);
-
-        // input.value = '';
     }
-
     document.getElementById('p1').style.display = 'none';
     document.getElementById('p2').style.display = 'none';
     document.getElementById('p3').style.display = 'none';
-    var plink1 = params.project1;
+    var plink1 = params[0].project1;
     var np = 0;
     var a = 0, b = 0, b = 0;
     if (plink1 !== undefined) {
@@ -192,7 +142,7 @@
         divp.appendChild(dlt);
         bsub.parentNode.insertBefore(divp, bsub);
     }
-    var plink2 = params.project2;
+    var plink2 = params[0].project2;
     if (plink2 !== undefined) {
         np++;
         b = 1;
@@ -212,7 +162,7 @@
         divp.appendChild(dlt);
         bsub.parentNode.insertBefore(divp, bsub);
     }
-    var plink3 = params.project3;
+    var plink3 = params[0].project3;
     if (plink3 !== undefined) {
         np++;
         c = 1;
@@ -258,12 +208,8 @@
         document.querySelector('#p3').style.display = 'block';
         dp3.parentNode.style.display = 'none';
     });
-
-
-
     const form = document.querySelector("#new-skill-form");
     form.addEventListener('submit', (e) => {
-
         const input = document.querySelector("#new-skill-input");
         const list_el = document.querySelector("#skills");
         e.preventDefault();
@@ -276,71 +222,41 @@
             }
         }
         if (b == 0) {
-
-
             const task_el = document.createElement('div');
             task_el.classList.add(skill, "task", "flex", "flex-row", "justify-around", "items-center");
-
             const task_content_el = document.createElement('div');
             task_content_el.classList.add('content');
             const bul = document.createElement('span')
             bul.classList.add("text-3xl");
             bul.innerHTML = "&bull;";
-
             task_el.appendChild(bul);
-            //console.log(bul.innerHTML);
             task_el.appendChild(task_content_el);
-
             const task_input_el = document.createElement('input');
-
             task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
-
             task_input_el.type = 'text';
             task_input_el.value = document.getElementById(skill).innerHTML;
             task_input_el.name = document.getElementById(skill).innerHTML;
             task_input_el.setAttribute('readonly', 'readonly');
-
             task_content_el.appendChild(task_input_el);
-
             strskill.push(skill);
-
-
             const task_delete_el = document.createElement('span');
             var d = "delete";
             task_delete_el.classList.add(d, "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-red-500", "hover:bg-red-700", "w-auto", "font-semibold", "pl-2", "pr-2");
             task_delete_el.setAttribute("onlick", "dlt()")
             task_delete_el.innerText = 'Delete';
-
-
-
             const bpj = document.querySelector(".beforeProj");
             task_el.appendChild(task_delete_el);
-
             bpj.parentNode.insertBefore(task_el, bpj);
-
             input.value = '';
-
-
-            //console.log(task_delete_el);
-
             var dlt = document.querySelectorAll(".delete");
             for (var i = 0; i < dlt.length; i++) {
-
-                //console.log(dlt[i]);
                 dlt[i].onclick = function () {
                     this.parentElement.style.display = "none";
-                    //console.log(strskill);
                     strskill.splice(strskill.length - i, 1);
-                    //console.log(strskill);
-
                 };
             };
         }
-
     });
-
-
-
     var dlt = document.querySelectorAll(".delete");
     for (var i = 0; i < dlt.length; i++) {
         //console.log(dlt[i]);
