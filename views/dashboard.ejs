@@ -80,33 +80,36 @@
             </section>
         </main>
     </section>
+    <!-- <section class="flex flex-col items-center mt-16 mb-16">
+        <section class="flex flex-col items-center w-98 h-auto ">
+            <div>
+                <h1 class="text-4xl font-bold mb-5">Add Project/Profile links</h1>
+            </div>
+            <form action="/submitProjects" method="post" id="new-project-form"
+                class="skills flex flex-col justify-between items-center space-y-8">
+                
+                <button
+                    class="bg-blue-500 font-semibold hover:bg-blue-700 hover:cursor-pointer border-black border-2 w-32 h-auto"
+                    type="submitalls" id="submitalls">Submit Links</button>
+            </form>
+        </section>
+    </section> -->
 </body>
 <script>
-const skillMap = new Map([
-  ["fullstackwebdevelopment", "Full Stack Web Development"],
-  ["reactjs", "React Js"],
-  ["backendwebdevelopment", "Backend Web Development"],
-  ["frontendwebdevelopment", "Frontend Web Development"],
-  ["nodejs", "Node JS"],
-  ["datastructuresandalgorithm", "Data Structures & Algorithms"],
-  ["androiddevelopment", "Android Development"],
-  ["other", "Miscellaneous"]
-]);
+
+
+
+
 
     var params = <%-JSON.stringify(params)%>
-        var strskill = params[0].skills;
-        console.log(typeof params);
-    console.log(params);
+    var strskill = params.skills;
     const head = document.querySelector('.mainsect');
-    console.log(head);
     const hhead = document.createElement('h1');
     hhead.classList.add("text-5xl", "font-bold", "mt-10")
-    hhead.innerHTML = "Welcome <%-params[0].name%>!";
+    hhead.innerHTML = "Welcome <%-params.name%>!";
     const inserthead = document.querySelector(".sects");
     inserthead.parentNode.insertBefore(hhead, inserthead);
-
-    console.log(params[0].skills);
-    for (var i = 0; i < params[0].skills.length; i++) {
+    for (var i = 0; i < params.skills.length; i++) {
 
         //console.log(prop+" "+ allskills[prop]);
         const form = document.querySelector("#new-skill-form");
@@ -116,7 +119,7 @@ const skillMap = new Map([
         const list_el = document.querySelector("#skills");
 
 
-        const skill = params[0].skills[i];
+        const skill = params.skills[i];
         //console.log(skill);
         // const val = allskills[prop];
         // strskill.push(skill);
@@ -139,11 +142,10 @@ const skillMap = new Map([
         task_input_el.classList.add("text", "bg-transparent", "font-bold", "text-xl", "w-95", "hover:cursor-default");
 
         task_input_el.type = 'text';
-        task_input_el.value = skillMap.get(skill);
+        task_input_el.value = skill;
         task_input_el.name = skill;
 
         task_input_el.setAttribute('readonly', 'readonly');
-        console.log(task_input_el);
         task_content_el.appendChild(task_input_el);
 
 
@@ -168,90 +170,93 @@ const skillMap = new Map([
     document.getElementById('p1').style.display = 'none';
     document.getElementById('p2').style.display = 'none';
     document.getElementById('p3').style.display = 'none';
-    var plink1=params[0].project1;
-    var np=0;
-    var a=0,b=0,b=0;
-    if(plink1!==undefined){
+    var plink1 = params.project1;
+    var np = 0;
+    var a = 0, b = 0, b = 0;
+    if (plink1 !== undefined) {
         np++;
-        a=1;
-        var divp=document.createElement('div');
-        var link=document.createElement('a');
-        link.classList.add("font-bold", "text-xl", "text-blue-900" ,"hover:text-blue-600")
-        link.innerHTML="&bull;" + " " +"Link"+np;
-        link.setAttribute("href",plink1);
+        a = 1;
+        document.getElementById('p1').setAttribute("value", plink1);
+        var divp = document.createElement('div');
+        var link = document.createElement('a');
+        link.classList.add("font-bold", "text-xl", "text-blue-900", "hover:text-blue-600")
+        link.innerHTML = "&bull;" + " " + "Link" + np;
+        link.setAttribute("href", plink1);
         const bsub = document.querySelector(".beforeSub");
         var dlt = document.createElement('span');
         var d = "dltProj";
-        dlt.classList.add(d,"dp1","ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        dlt.classList.add(d, "dp1", "ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
         dlt.setAttribute("onlick", "dltp1()")
         dlt.innerText = 'Edit';
         divp.appendChild(link);
         divp.appendChild(dlt);
         bsub.parentNode.insertBefore(divp, bsub);
     }
-    var plink2=params[0].project1;
-    if(plink2!==undefined){
+    var plink2 = params.project2;
+    if (plink2 !== undefined) {
         np++;
-        b=1;
-        var divp=document.createElement('div');
-        var link=document.createElement('a');
-        link.classList.add("font-bold", "text-xl", "text-blue-900" ,"hover:text-blue-600")
-        link.innerHTML="&bull;" + " " +"Link"+np;
-        link.setAttribute("href",plink2);
+        b = 1;
+        document.getElementById('p2').setAttribute("value", plink2);
+        var divp = document.createElement('div');
+        var link = document.createElement('a');
+        link.classList.add("font-bold", "text-xl", "text-blue-900", "hover:text-blue-600")
+        link.innerHTML = "&bull;" + " " + "Link" + np;
+        link.setAttribute("href", plink2);
         const bsub = document.querySelector(".beforeSub");
         var dlt = document.createElement('span');
         var d = "dltProj";
-        dlt.classList.add(d,"dp2","ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        dlt.classList.add(d, "dp2", "ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
         dlt.setAttribute("onlick", "dltp2()")
         dlt.innerText = 'Edit';
         divp.appendChild(link);
         divp.appendChild(dlt);
         bsub.parentNode.insertBefore(divp, bsub);
     }
-    var plink3=params[0].project1;
-    if(plink3!==undefined){
+    var plink3 = params.project3;
+    if (plink3 !== undefined) {
         np++;
-        c=1;
-        var divp=document.createElement('div');
-        var link=document.createElement('a');
-        link.classList.add("font-bold", "text-xl", "text-blue-900" ,"hover:text-blue-600")
-        link.innerHTML="&bull;" + " " +"Link"+np;
-        link.setAttribute("href",plink3);
+        c = 1;
+        document.getElementById('p3').setAttribute("value", plink3);
+        var divp = document.createElement('div');
+        var link = document.createElement('a');
+        link.classList.add("font-bold", "text-xl", "text-blue-900", "hover:text-blue-600")
+        link.innerHTML = "&bull;" + " " + "Link" + np;
+        link.setAttribute("href", plink3);
         const bsub = document.querySelector(".beforeSub");
         var dlt = document.createElement('span');
         var d = "dltProj";
-        dlt.classList.add(d,"dp3","ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
+        dlt.classList.add(d, "dp3", "ml-20", "hover:cursor-pointer", "items-center", "border-2", "border-black", "bg-fuchsia-500", "hover:bg-fuchsia-700", "w-auto", "font-semibold", "pl-2", "pr-2");
         dlt.setAttribute("onlick", "dltp3()")
         dlt.innerText = 'Edit';
         divp.appendChild(link);
         divp.appendChild(dlt);
         bsub.parentNode.insertBefore(divp, bsub);
     }
-    var t=np;
-    np=3-np;
-    if(a==0){
+    var t = np;
+    np = 3 - np;
+    if (a == 0) {
         document.querySelector("#p1").style.display = 'block';
     }
-    if(b==0){
+    if (b == 0) {
         document.querySelector("#p2").style.display = 'block';
     }
-    if(c==0){
+    if (c == 0) {
         document.querySelector("#p3").style.display = 'block';
     }
     var dp1 = document.querySelector(".dp1");
-    dp1.addEventListener('click', (e)=>{
+    dp1.addEventListener('click', (e) => {
         document.querySelector('#p1').style.display = 'block';
-        dp1.parentNode.style.display='none';
+        dp1.parentNode.style.display = 'none';
     });
     var dp2 = document.querySelector(".dp2");
-    dp2.addEventListener('click', (e)=>{
+    dp2.addEventListener('click', (e) => {
         document.querySelector('#p2').style.display = 'block';
-        dp2.parentNode.style.display='none';
+        dp2.parentNode.style.display = 'none';
     });
     var dp3 = document.querySelector(".dp3");
-    dp3.addEventListener('click', (e)=>{
+    dp3.addEventListener('click', (e) => {
         document.querySelector('#p3').style.display = 'block';
-        dp3.parentNode.style.display='none';
+        dp3.parentNode.style.display = 'none';
     });
 
 
