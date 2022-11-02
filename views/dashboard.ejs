@@ -255,7 +255,8 @@ const skillMap = new Map([
             var dlt = document.querySelectorAll(".delete");
             for (var i = 0; i < dlt.length; i++) {
                 dlt[i].onclick = function () {
-                    this.parentElement.style.display = "none";
+                    var divi=this.parentElement;
+                    divi.remove();
                     strskill.splice(strskill.length - i, 1);
                 };
             };
@@ -264,7 +265,8 @@ const skillMap = new Map([
     var dlt = document.querySelectorAll(".delete");
     for (var i = 0; i < dlt.length; i++) {
         dlt[i].onclick = function () {
-            this.parentElement.style.display = "none";
+            var divi=this.parentElement;
+            divi.remove();
             strskill.splice(i, 1);
         };
     };
